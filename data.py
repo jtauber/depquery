@@ -33,3 +33,28 @@ class Data:
             )
 
             self.lemma_index[lemma].add(word_id)
+
+    def query(self, query_object):
+        # optimize for root query involving lemma
+        if "lemma" in query_object.kwargs:
+            domain = self.lemma_index[query_object.kwargs["lemma"]]
+        else:
+            domain = self.words
+
+        for word_id in domain:
+            if "rel" in query_object.kwargs and \
+                    isinstance(query_object.kwargs["rel"], Var):
+                label = query_object.kwargs["rel"].label
+                yield {label: self.words[word_id]["rel"]}
+            else:
+                yield {}
+
+
+class Q:
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+
+class Var:
+    def __init__(self, label):
+        self.label = label
