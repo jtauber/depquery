@@ -42,12 +42,11 @@ class Data:
             domain = self.words
 
         for word_id in domain:
-            if "rel" in query_object.kwargs and \
-                    isinstance(query_object.kwargs["rel"], Var):
-                label = query_object.kwargs["rel"].label
-                yield {label: self.words[word_id]["rel"]}
-            else:
-                yield {}
+            result = {}
+            for kwarg, value in query_object.kwargs.items():
+                if isinstance(value, Var):
+                    result.update({value.label: self.words[word_id][kwarg]})
+            yield result
 
 
 class Q:
