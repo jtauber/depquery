@@ -43,10 +43,16 @@ class Data:
 
         for word_id in domain:
             result = {}
+            match = True
             for kwarg, value in query_object.kwargs.items():
-                if isinstance(value, Var):
+                if isinstance(value, str):
+                    if value != self.words[word_id][kwarg]:
+                        match = False
+                        break
+                elif isinstance(value, Var):
                     result.update({value.label: self.words[word_id][kwarg]})
-            yield result
+            if match:
+                yield result
 
 
 class Q:
