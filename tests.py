@@ -71,3 +71,20 @@ for result in d.query(query):
     results[tuple(sorted(result.items()))] += 1
 
 assert results == {(("rel", "conj"),): 148}
+
+
+query = Q(lemma="καθώς", rel=Var("rel"), head=Q(pos=Var("head_pos")))
+
+results = defaultdict(int)
+
+for result in d.query(query):
+    results[tuple(sorted(result.items()))] += 1
+
+assert results == {
+    (("head_pos", "A-"), ("rel", "conj")): 9,
+    (("head_pos", "RP"), ("rel", "conj")): 8,
+    (("head_pos", "N-"), ("rel", "conj")): 14,
+    (("head_pos", "V-"), ("rel", "conj")): 148,
+    (("head_pos", "D-"), ("rel", "conj")): 2,
+    (("head_pos", "RD"), ("rel", "conj")): 1,
+}
