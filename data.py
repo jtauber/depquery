@@ -39,7 +39,7 @@ class Data:
         match = True
         for kwarg, value in query_object.kwargs.items():
             if isinstance(value, str):
-                if value != self.words[word_id][kwarg]:
+                if value != self.words.get(word_id, {}).get(kwarg):
                     match = False
                     break
             elif isinstance(value, Var):

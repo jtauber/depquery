@@ -115,3 +115,20 @@ assert d.count(
     ((1, 'conj'), (2, 'A-'), (3, 'CL'), (4, None)): 1,
     ((1, 'conj'), (2, 'V-'), (3, 'CL'), (4, 'A-')): 5,
 }
+
+
+# what are the possible relationships of a noun to a verb head?
+
+assert d.count(
+    Q(pos="N-", rel=Var("rel"), head=Q(pos="V-"))
+) == {
+    (('rel', 'ADV'),): 6390,
+    (('rel', 'S'),): 4311,
+    (('rel', 'O2'),): 134,
+    (('rel', 'IO'),): 478,
+    (('rel', 'CL'),): 1426,
+    (('rel', 'np'),): 33,
+    (('rel', 'pp'),): 8,
+    (('rel', 'P'),): 2,
+    (('rel', 'O'),): 4618
+}

@@ -16,24 +16,27 @@ d = Data()
 d.load("supermorphgnt.txt")
 ```
 
-Then query for the part-of-speech of all heads of words with the lemma καθώς:
+Now query "what are the possible relationships of a noun to a verb head?":
 
 ```
-query = Q(lemma="καθώς", head=Q(pos=Var("pos")))
-
-for result, count in sorted(d.count(query).items()):
-    print("καθώς with a {pos} head".format(**dict(result)), count)
+for result, count in d.count(
+    Q(pos="N-", rel=Var("rel"), head=Q(pos="V-"))
+).items():
+    print(result, count)
 ```
 
 This outputs:
 
 ```
-καθώς with a A- head 9
-καθώς with a D- head 2
-καθώς with a N- head 14
-καθώς with a RD head 1
-καθώς with a RP head 8
-καθώς with a V- head 148
+(('rel', 'O'),) 4618
+(('rel', 'ADV'),) 6390
+(('rel', 'np'),) 33
+(('rel', 'CL'),) 1426
+(('rel', 'S'),) 4311
+(('rel', 'P'),) 2
+(('rel', 'pp'),) 8
+(('rel', 'IO'),) 478
+(('rel', 'O2'),) 134
 ```
 
 See `tests.py` for more examples.
