@@ -69,6 +69,14 @@ class Data:
             if result is not None:
                 yield result
 
+    def count(self, query_object):
+        results = defaultdict(int)
+
+        for result in self.query(query_object):
+            results[tuple(sorted(result.items()))] += 1
+
+        return results
+
 
 class Q:
     def __init__(self, **kwargs):

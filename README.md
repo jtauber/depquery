@@ -21,12 +21,7 @@ Then query for the part-of-speech of all heads of words with the lemma καθώ�
 ```
 query = Q(lemma="καθώς", head=Q(pos=Var("pos")))
 
-results = defaultdict(int)
-
-for result in d.query(query):
-    results[tuple(result.items())] += 1
-
-for result, count in sorted(results.items()):
+for result, count in sorted(d.count(query).items()):
     print("καθώς with a {pos} head".format(**dict(result)), count)
 ```
 
