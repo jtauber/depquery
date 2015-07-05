@@ -45,6 +45,7 @@ See `tests.py` for more examples.
 
 ## To Do
 
+* rewrite test to not need `supermorphgnt.txt`
 * logical connectives
 * substring predicates
 * ability for subqueries to walk back down dependency tree
