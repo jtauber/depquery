@@ -44,6 +44,13 @@ class Data:
                     break
             elif isinstance(value, Var):
                 result.update({value.label: self.words[word_id][kwarg]})
+            elif isinstance(value, Q):
+                sub_result = self.test_word(value, self.words[word_id][kwarg])
+                if sub_result is None:
+                    match = False
+                    break
+                else:
+                    result.update(sub_result)
             else:
                 raise ValueError("{} of unknown type".format(value))
         if match:

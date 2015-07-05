@@ -61,3 +61,13 @@ for result in d.query(query):
     results[tuple(sorted(result.items()))] += 1
 
 assert results == {(): 28237}
+
+
+query = Q(lemma="καθώς", rel=Var("rel"), head=Q(pos="V-"))
+
+results = defaultdict(int)
+
+for result in d.query(query):
+    results[tuple(sorted(result.items()))] += 1
+
+assert results == {(("rel", "conj"),): 148}
