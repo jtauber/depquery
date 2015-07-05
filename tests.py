@@ -6,7 +6,12 @@ d = Data()
 d.load("supermorphgnt.txt")
 
 
+# how many times is the 'lemma' καθώς?
+
 assert len(list(d.query(Q(lemma="καθώς")))) == 182
+
+
+# what values of 'rel' does καθώς have?
 
 assert d.count(
     Q(lemma="καθώς", rel=Var("rel"))
@@ -14,11 +19,16 @@ assert d.count(
     (("rel", "conj"),): 182
 }
 
+# what values of 'rel' and 'pos' does καθώς have?
+
 assert d.count(
     Q(lemma="καθώς", rel=Var("rel"), pos=Var("pos"))
 ) == {
     (("pos", "C-"), ("rel", "conj")): 182
 }
+
+
+# how many times does καθώς have a 'pos' of 'C-'?
 
 assert d.count(
     Q(lemma="καθώς", pos="C-")
@@ -26,10 +36,16 @@ assert d.count(
     (): 182
 }
 
+
+# how many times does καθώς have a 'pos' of 'D-'?
+
 assert d.count(
     Q(lemma="καθώς", pos="D-")
 ) == {
 }
+
+
+# how many times does a word have a 'pos' of 'N-'?
 
 assert d.count(
     Q(pos="N-")
@@ -37,11 +53,17 @@ assert d.count(
     (): 28237
 }
 
+
+# what is the 'rel' of καθώς when the head has a 'pos' of 'V-'
+
 assert d.count(
     Q(lemma="καθώς", rel=Var("rel"), head=Q(pos="V-"))
 ) == {
     (("rel", "conj"),): 148
 }
+
+
+# what are the values of 'rel' and the head's 'pos' when 'lemma' is 'καθώς'?
 
 assert d.count(
     Q(lemma="καθώς", rel=Var("rel"), head=Q(pos=Var("h_pos")))
@@ -53,6 +75,10 @@ assert d.count(
     (("h_pos", "D-"), ("rel", "conj")): 2,
     (("h_pos", "RD"), ("rel", "conj")): 1,
 }
+
+
+# what the 'lemma' is 'καθώς', what are the values of 'rel', the head's 'pos',
+# the head's 'rel' and the head's head's 'pos'?
 
 assert d.count(
     Q(

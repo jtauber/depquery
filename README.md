@@ -35,3 +35,5 @@ This outputs:
 καθώς with a RP head 8
 καθώς with a V- head 148
 ```
+
+See `tests.py` for more examples.
