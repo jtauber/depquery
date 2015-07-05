@@ -8,31 +8,32 @@ class Data:
         self.lemma_index = defaultdict(set)
 
     def load(self, filename):
-        for line in open(filename):
-            (
-                word_id, verse_id, paragraph_id, sentence_id, pos, parse,
-                crit_text, text, word, norm, lemma, rel, head
-            ) = line.strip().split()
+        with open(filename) as f:
+            for line in f:
+                (
+                    word_id, verse_id, paragraph_id, sentence_id, pos, parse,
+                    crit_text, text, word, norm, lemma, rel, head
+                ) = line.strip().split()
 
-            if head == "None":
-                head = None
+                if head == "None":
+                    head = None
 
-            self.words[word_id] = dict(
-                verse_id=verse_id,
-                paragraph_id=paragraph_id,
-                sentence_id=sentence_id,
-                pos=pos,
-                parse=parse,
-                crit_text=crit_text,
-                text=text,
-                word=word,
-                norm=norm,
-                lemma=lemma,
-                rel=rel,
-                head=head,
-            )
+                self.words[word_id] = dict(
+                    verse_id=verse_id,
+                    paragraph_id=paragraph_id,
+                    sentence_id=sentence_id,
+                    pos=pos,
+                    parse=parse,
+                    crit_text=crit_text,
+                    text=text,
+                    word=word,
+                    norm=norm,
+                    lemma=lemma,
+                    rel=rel,
+                    head=head,
+                )
 
-            self.lemma_index[lemma].add(word_id)
+                self.lemma_index[lemma].add(word_id)
 
     def test_word(self, query_object, word_id):
         result = {}
