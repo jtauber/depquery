@@ -24,19 +24,19 @@ query = Q(lemma="καθώς", head=Q(pos=Var("pos")))
 results = defaultdict(int)
 
 for result in d.query(query):
-    results[tuple(sorted(result.items()))] += 1
+    results[tuple(result.items())] += 1
 
-for result, count in results.items():
+for result, count in sorted(results.items()):
     print("καθώς with a {pos} head".format(**dict(result)), count)
 ```
 
-outputs:
+This outputs:
 
 ```
-καθώς with a RD head 1
 καθώς with a A- head 9
-καθώς with a V- head 148
 καθώς with a D- head 2
 καθώς with a N- head 14
+καθώς with a RD head 1
 καθώς with a RP head 8
+καθώς with a V- head 148
 ```
