@@ -51,6 +51,8 @@ class Data:
                         break
                 elif isinstance(value, Var):
                     result.update({value.label: self.words[word_id][kwarg]})
+                else:
+                    raise ValueError("{} of unknown type".format(value))
             if match:
                 yield result
 
