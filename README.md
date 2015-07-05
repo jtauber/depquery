@@ -4,7 +4,31 @@ Simple Python-based query language for the "super" MorphGNT with dependency
 analysis.
 
 
-## Example
+## Queries
+
+A query is just a `Q` object with name/value pairs. The names correspond to
+fields in the data and the values are either:
+
+* literal matches (e.g. `pos="N-"`)
+* variables that are to be filled in during the query (e.g. `rel=Var("rel")`)
+* subqueries that are to be done by following head link and applying the
+  subquery to the head word (e.g. `head=Q(pos="V-")`)
+
+So for example:
+
+    Q(pos="N-", rel=Var("rel"), head=Q(pos="V-"))
+
+asks the question: "what are the possible `rel` values when `pos` is `N-` and
+the `pos` of the `head` is `V-`?". In other words "what are the possible
+relationships of a noun to a verb head?"
+
+Once you have a query object like this, you can either run
+`data.query(query_object)` to get an iterator over the results (a dictionary
+of variables you've selected with `Var`) or `data.count(query_object)` to get
+a dictionary mapping results to a count of how many times that result was seen.
+
+
+## Full Usage Example
 
 Load the data:
 
