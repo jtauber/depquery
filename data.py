@@ -43,7 +43,8 @@ class Data:
                     match = False
                     break
             elif isinstance(value, Var):
-                result.update({value.label: self.words.get(word_id, {}).get(kwarg)})
+                result.update({
+                    value.label: self.words.get(word_id, {}).get(kwarg)})
             elif isinstance(value, Q):
                 sub_result = self.test_word(value, self.words[word_id][kwarg])
                 if sub_result is None:
