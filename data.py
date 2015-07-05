@@ -34,6 +34,21 @@ class Data:
 
             self.lemma_index[lemma].add(word_id)
 
+    def test_word(self, query_object, word_id):
+        result = {}
+        match = True
+        for kwarg, value in query_object.kwargs.items():
+            if isinstance(value, str):
+                if value != self.words[word_id][kwarg]:
+                    match = False
+                    break
+            elif isinstance(value, Var):
+                result.update({value.label: self.words[word_id][kwarg]})
+            else:
+                raise ValueError("{} of unknown type".format(value))
+        if match:
+            return result
+
     def query(self, query_object):
         # optimize for root query involving lemma
         if "lemma" in query_object.kwargs:
@@ -42,18 +57,8 @@ class Data:
             domain = self.words
 
         for word_id in domain:
-            result = {}
-            match = True
-            for kwarg, value in query_object.kwargs.items():
-                if isinstance(value, str):
-                    if value != self.words[word_id][kwarg]:
-                        match = False
-                        break
-                elif isinstance(value, Var):
-                    result.update({value.label: self.words[word_id][kwarg]})
-                else:
-                    raise ValueError("{} of unknown type".format(value))
-            if match:
+            result = self.test_word(query_object, word_id)
+            if result is not None:
                 yield result
 
 
