@@ -1,2 +1,4 @@
 __pycache__/
 supermorphgnt.txt
+.coverage
+htmlcov/
