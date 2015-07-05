@@ -3,6 +3,7 @@
 Simple Python-based query language for the "super" MorphGNT with dependency
 analysis.
 
+
 ## Example
 
 Load the data:
@@ -40,3 +41,10 @@ This outputs:
 ```
 
 See `tests.py` for more examples.
+
+
+## To Do
+
+* logical connectives
+* substring predicates
+* ability for subqueries to walk back down dependency tree
