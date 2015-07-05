@@ -48,6 +48,16 @@ query = Q(lemma="καθώς", pos="D-")
 results = defaultdict(int)
 
 for result in d.query(query):
-    results[sorted(tuple(result.items()))] += 1
+    results[tuple(sorted(result.items()))] += 1
 
 assert results == {}
+
+
+query = Q(pos="N-")
+
+results = defaultdict(int)
+
+for result in d.query(query):
+    results[tuple(sorted(result.items()))] += 1
+
+assert results == {(): 28237}
