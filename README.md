@@ -33,8 +33,6 @@ a dictionary mapping results to a count of how many times that result was seen.
 Load the data:
 
 ```
-from collections import defaultdict
-
 from data import Data, Q, Var
 
 d = Data()
